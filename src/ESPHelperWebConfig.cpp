@@ -105,7 +105,7 @@ void ESPHelperWebConfig::handleGet() {
     _server->send(200, "text/html",
     String("<header>\
   	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=no\"/>\
-  	<title>Sistem configuration</title>\
+  	<title>System Configuration</title>\
   	<style body=\"text-align:center;\"font-family:verdana;\"></style>\
   	</header>\
   	<body style=\"background-color:#00dfff;\"><font style=\"font-family:verdana;\">\
@@ -114,19 +114,19 @@ void ESPHelperWebConfig::handleGet() {
     <hr />\
     <form action=\"" + String(_pageURI) + "\" method=\"POST\">\
     Device Name:</br>\
-    <input type=\"text\" name=\"hostname\" size=\"45\" maxlength=\"63\" placeholder=\"Device Hostname  (Required)\" value=\"" + String(_fillData->hostname) + "\"></br>\
+    <input type=\"text\" name=\"hostname\" size=\"45\" maxlength=\"63\" placeholder=\"Device Hostname  (Required)\" value=\"" + String(_fillData->hostname) + "\" pattern=\"[a-zA-Z0-9-_:.]+\"></br>\
+    OTA Password:</br>\
+    <input type=\"password\" name=\"otaPassword\" size=\"45\" maxlength=\"63\" placeholder=\"OTA Password (Previous value used if blank)\"></br></br>\
     SSID:</br>\
     <input type=\"text\" name=\"ssid\" size=\"45\" maxlength=\"63\" placeholder=\"SSID  (Required)\" value=\"" + String(_fillData->ssid) + "\"></br>\
-    SSIS Password:</br>\
-    <input type=\"password\" name=\"netPass\" size=\"45\" maxlength=\"63\" placeholder=\"Network Password (Previous value used if blank)\"></br>\
-    OTA Password:</br>\
-    <input type=\"password\" name=\"otaPassword\" size=\"45\" maxlength=\"63\" placeholder=\"OTA Password (Previous value used if blank)\"></br>\
+    SSID Password:</br>\
+    <input type=\"password\" name=\"netPass\" size=\"45\" maxlength=\"63\" placeholder=\"Network Password (Previous value used if blank)\"></br></br>\
     MQTT Host (IP):</br>\
     <input type=\"text\" name=\"mqttHost\" size=\"45\" maxlength=\"63\" placeholder=\"MQTT Host\" value=\"" + String(_fillData->mqttHost) + "\"></br>\
-    MQTT User:</br>\
-    <input type=\"text\" name=\"mqttUser\" size=\"45\" maxlength=\"63\" placeholder=\"MQTT Username\" value=\"" + String(_fillData->mqttUser) + "\"></br>\
     MQTT Port:</br>\
     <input type=\"text\" name=\"mqttPort\" size=\"45\" maxlength=\"63\" placeholder=\"MQTT Port\" value=\"" + String(_fillData->mqttPort) + "\"></br>\
+    MQTT User:</br>\
+    <input type=\"text\" name=\"mqttUser\" size=\"45\" maxlength=\"63\" placeholder=\"MQTT Username\" value=\"" + String(_fillData->mqttUser) + "\"></br>\
     MQTT Password:</br>\
     <input type=\"password\" name=\"mqttPass\" size=\"45\" maxlength=\"63\" placeholder=\"MQTT Password (Previous value used if blank)\"></br>\
     <p>Press Submit to update ESP8266 config file</br>\
@@ -140,7 +140,7 @@ void ESPHelperWebConfig::handleGet() {
     _server->send(200, "text/html",
     String("<header>\
   	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=no\"/>\
-  	<title>Sistem configuration</title>\
+  	<title>System Configuration</title>\
   	<style body=\"text-align:center;\"font-family:verdana;\"></style>\
   	</header>\
   	<body style=\"background-color:#00dfff;\"><font style=\"font-family:verdana;\">\
@@ -149,19 +149,19 @@ void ESPHelperWebConfig::handleGet() {
     <hr />\
     <form action=\"" + String(_pageURI) + "\" method=\"POST\">\
     Device Name:</br>\
-    <input type=\"text\" name=\"hostname\" size=\"45\" maxlength=\"63\" placeholder=\"Device Hostname  (Required)\"></br>\
+    <input type=\"text\" name=\"hostname\" size=\"45\" maxlength=\"63\" placeholder=\"Device Hostname  (Required)\" pattern=\"[a-zA-Z0-9-]+\"></br>\
+    OTA Password:</br>\
+    <input type=\"password\" name=\"otaPassword\" size=\"45\" maxlength=\"63\" placeholder=\"OTA Password\"></br></br>\
     SSID:</br>\
     <input type=\"text\" name=\"ssid\" size=\"45\" maxlength=\"63\" placeholder=\"SSID  (Required)\"></br>\
-    SSIS Password:</br>\
-    <input type=\"password\" name=\"netPass\" size=\"45\" maxlength=\"63\" placeholder=\"Network Password\"></br>\
-    OTA Password:</br>\
-    <input type=\"password\" name=\"otaPassword\" size=\"45\" maxlength=\"63\" placeholder=\"OTA Password\"></br>\
+    SSID Password:</br>\
+    <input type=\"password\" name=\"netPass\" size=\"45\" maxlength=\"63\" placeholder=\"Network Password\"></br></br>\
     MQTT Host (IP):</br>\
     <input type=\"text\" name=\"mqttHost\" size=\"45\" maxlength=\"63\" placeholder=\"MQTT Host\"></br>\
-    MQTT User:</br>\
-    <input type=\"text\" name=\"mqttUser\" size=\"45\" maxlength=\"63\" placeholder=\"MQTT Username\"></br>\
     MQTT Port:</br>\
     <input type=\"text\" name=\"mqttPort\" size=\"45\" maxlength=\"63\" placeholder=\"MQTT Port\"></br>\
+    MQTT User:</br>\
+    <input type=\"text\" name=\"mqttUser\" size=\"45\" maxlength=\"63\" placeholder=\"MQTT Username\"></br>\
     MQTT Password:</br>\
     <input type=\"password\" name=\"mqttPass\" size=\"45\" maxlength=\"63\" placeholder=\"MQTT Password\"></br>\
     <p>Press Submit to update ESP8266 config file</p>\
@@ -238,7 +238,7 @@ void ESPHelperWebConfig::handlePost() {
   _server->send(200, "text/html",
     String("<center>\
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=no\"/>\
-    <p><strong>Config info loaded</strong></p>\
+    <p><strong>Configuration Updated</strong></p>\
     <hr />\
     <p><a href=" + String("config") + ">Open configuration page</a></p>\
     <p>Wait for the ESP8266 to restart with the new settings</p>"));
@@ -252,7 +252,6 @@ void ESPHelperWebConfig::handlePost() {
              pass : _newNetPass,
              otaPassword : _newOTAPass,
              hostname : _newHostname};
-
 
   _configLoaded = true;
 }

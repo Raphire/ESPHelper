@@ -1602,3 +1602,15 @@ output:
 char* ESPHelper::getHostname(){
 	return _hostname;
 }
+
+/*
+set the hostname of the ESP for OTA uploads
+
+input:
+	uint16_t containing the max size of MQTT buffer
+output: 
+	boolean success
+*/
+bool ESPHelper::setBufferSize(uint16_t size){
+	return client.setBufferSize(size);
+}
